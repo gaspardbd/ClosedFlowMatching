@@ -1,0 +1,60 @@
+\begin{thebibliography}{10}
+
+\bibitem{albergo2023building}
+Michael~S Albergo and Eric Vanden-Eijnden.
+\newblock Building normalizing flows with stochastic interpolants.
+\newblock {\em ICLR}, 2023.
+
+\bibitem{bertrand2025closed}
+Quentin Bertrand, Anne Gagneux, Mathurin Massias, and R{\'e}mi Emonet.
+\newblock On the closed-form of flow matching: Generalization does not arise
+  from target stochasticity.
+\newblock {\em NeurIPS}, 2025.
+
+\bibitem{biroli2024dynamical}
+Giulio Biroli, Tony Bonnaire, Valentin de~Bortoli, and Marc M{\'e}zard.
+\newblock Dynamical regimes of diffusion models.
+\newblock {\em Nature Communications}, 15(1):9957, 2024.
+
+\bibitem{gao2024flow}
+Weiguo Gao and Mingze Li.
+\newblock How do flow matching models memorize and generalize in sample data
+  subspaces?
+\newblock {\em arXiv preprint arXiv:2410.23594}, 2024.
+
+\bibitem{ho2020denoising}
+Jonathan Ho, Ajay Jain, and Pieter Abbeel.
+\newblock Denoising diffusion probabilistic models.
+\newblock {\em NeurIPS}, 2020.
+
+\bibitem{lipman2023flow}
+Yaron Lipman, Ricky~TQ Chen, Heli Ben-Hamu, Maximilian Nickel, and Matthew Le.
+\newblock Flow matching for generative modeling.
+\newblock {\em ICLR}, 2023.
+
+\bibitem{lipman2024flow}
+Yaron Lipman, Marton Havasi, Peter Holderrieth, Neta Shaul, Matt Le, Brian
+  Karrer, Ricky~TQ Chen, David Lopez-Paz, Heli Ben-Hamu, and Itai Gat.
+\newblock Flow matching guide and code.
+\newblock {\em arXiv preprint arXiv:2412.06264}, 2024.
+
+\bibitem{liu2023flow}
+Xingchao Liu, Chengyue Gong, and Qiang Liu.
+\newblock Flow straight and fast: Learning to generate and transfer data with
+  rectified flow.
+\newblock {\em ICLR}, 2023.
+
+\bibitem{song2021score}
+Yang Song, Jascha Sohl-Dickstein, Diederik~P Kingma, Abhishek Kumar, Stefano
+  Ermon, and Ben Poole.
+\newblock Score-based generative modeling through stochastic differential
+  equations.
+\newblock {\em ICLR}, 2021.
+
+\bibitem{vastola2025generalization}
+John~J Vastola.
+\newblock Generalization through variance: How noise shapes inductive biases in
+  diffusion models.
+\newblock {\em ICLR}, 2025.
+
+\end{thebibliography}
