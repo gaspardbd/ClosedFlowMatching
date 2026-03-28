@@ -67,14 +67,20 @@ class ToyDataset:
         return torch.from_numpy(samples).float()
 
     def _make_gaussian_mixture_nd(self, rng, n_components: int = 8) -> torch.Tensor:
-        """Gaussian mixture in d dimensions — centers on a circle in the first 2 coords."""
+        """Gaussian mixture in d dimensions — centers spread across all dimensions.
+
+        Centers lie on a hypersphere of radius sqrt(2d) so that
+        ||center_i - center_j||^2 ~ 4d, analogous to interpoint distances in image data.
+        Using sigma=0.5 gives intra-cluster collapse at t ~ 0.15-0.2 for d ~ 100-200,
+        matching the stochastic-to-deterministic transition observed on CIFAR-10.
+        """
         n, d = self.n_samples, self.dim
-        angles = np.linspace(0, 2 * np.pi, n_components, endpoint=False)
-        centers = np.zeros((n_components, d))
-        centers[:, 0] = 2.0 * np.cos(angles)
-        centers[:, 1] = 2.0 * np.sin(angles)
+        center_rng = np.random.RandomState(1234)
+        raw = center_rng.randn(n_components, d)
+        norms = np.linalg.norm(raw, axis=1, keepdims=True)
+        centers = raw / norms * np.sqrt(2.0 * d)
         assignments = rng.randint(0, n_components, n)
-        sigma = 0.15
+        sigma = 0.5
         samples = centers[assignments] + rng.randn(n, d) * sigma
         return torch.from_numpy(samples).float()
 
