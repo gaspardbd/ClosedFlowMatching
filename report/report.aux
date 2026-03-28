@@ -72,8 +72,10 @@
 \@writefile{toc}{\contentsline {section}{\numberline {6}Experimental setup}{4}{section.6}\protected@file@percent }
 \newlabel{sec:setup}{{6}{4}{Experimental setup}{section.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Synthetic datasets}{4}{subsection.6.1}\protected@file@percent }
+\citation{biroli2024dynamical}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Architecture and optimization}{5}{subsection.6.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{2D experiments.}{5}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{$d = 100$ experiments (Figure~2 replication).}{5}{subsection.6.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Image experiments.}{5}{subsection.6.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Measured quantities}{5}{subsection.6.3}\protected@file@percent }
 \newlabel{subsec:quantities}{{6.3}{5}{Measured quantities}{subsection.6.3}{}}
@@ -87,22 +89,42 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Replication of Figure~1: stochasticity analysis}{5}{subsection.7.1}\protected@file@percent }
 \newlabel{subsec:fig1}{{7.1}{5}{Replication of Figure~1: stochasticity analysis}{subsection.7.1}{}}
 \@writefile{toc}{\contentsline {paragraph}{Cosine similarity histograms (Figure~1a).}{5}{subsection.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Dimension dependence (Figure~1c).}{5}{subsection.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Comparison with Biroli et al.}{5}{subsection.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Replication of Figure~2: velocity approximation failure}{5}{subsection.7.2}\protected@file@percent }
-\newlabel{subsec:fig2}{{7.2}{5}{Replication of Figure~2: velocity approximation failure}{subsection.7.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Replication of Figure~3: generalization switching time}{6}{subsection.7.3}\protected@file@percent }
-\newlabel{subsec:fig3}{{7.3}{6}{Replication of Figure~3: generalization switching time}{subsection.7.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Additional experiments}{6}{section.8}\protected@file@percent }
-\newlabel{sec:additional}{{8}{6}{Additional experiments}{section.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Dataset geometry}{6}{subsection.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Dimension scaling}{6}{subsection.8.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Model capacity}{6}{subsection.8.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Training duration}{6}{subsection.8.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {9}Discussion}{6}{section.9}\protected@file@percent }
-\newlabel{sec:discussion}{{9}{6}{Discussion}{section.9}{}}
-\@writefile{toc}{\contentsline {paragraph}{Robust findings.}{6}{section.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Inconclusive aspects.}{6}{Item.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Dimension dependence (Figure~1c).}{5}{figure.caption.1}\protected@file@percent }
+\citation{biroli2024dynamical}
+\citation{biroli2024dynamical}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Cosine similarity histograms between $\hat  {u}^\star $ and $u^{\mathrm  {cond}}$ for three 2D datasets ($n = 5000$) at various time steps. The progressive concentration near~1 confirms the collapse to a single conditional direction. In 2D the stochastic regime persists until intermediate~$t$, consistent with the paper's Figure~1a (top row, two-moons).}}{6}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:cosine-hist}{{1}{6}{Cosine similarity histograms between $\hat {u}^\star $ and $u^{\mathrm {cond}}$ for three 2D datasets ($n = 5000$) at various time steps. The progressive concentration near~1 confirms the collapse to a single conditional direction. In 2D the stochastic regime persists until intermediate~$t$, consistent with the paper's Figure~1a (top row, two-moons)}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Comparison with Biroli et al.}{6}{figure.caption.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces (a)~Percentage of pairs with $\cos (\hat  {u}^\star , u^{\mathrm  {cond}}) > 0.9$ vs.\ $t$, for varying data dimension~$d$ ($n = 2000$). Higher dimension leads to earlier collapse, consistent with the paper's Figure~1c on Imagenette. (b)~Empirical collapse time matches the $\propto \!\log (n)/d$ scaling from~\cite  {biroli2024dynamical} for both $n = 500$ and $n = 2000$.}}{6}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:dim-dependence}{{2}{6}{(a)~Percentage of pairs with $\cos (\hat {u}^\star , u^{\mathrm {cond}}) > 0.9$ vs.\ $t$, for varying data dimension~$d$ ($n = 2000$). Higher dimension leads to earlier collapse, consistent with the paper's Figure~1c on Imagenette. (b)~Empirical collapse time matches the $\propto \!\log (n)/d$ scaling from~\cite {biroli2024dynamical} for both $n = 500$ and $n = 2000$}{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Replication of Figure~2: velocity approximation failure}{6}{subsection.7.2}\protected@file@percent }
+\newlabel{subsec:fig2}{{7.2}{6}{Replication of Figure~2: velocity approximation failure}{subsection.7.2}{}}
+\citation{bertrand2025closed}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Collapse time $t_C$ vs.\ dataset size~$n$ at fixed $d = 50$ (left) and $d = 100$ (right). The empirical values follow the $\propto \!\log (n)/d$ scaling (dashed line), confirming the logarithmic dependence on~$n$. Unlike the earlier version of this experiment at $d = 5$ and $d = 10$ where $t_C$ exceeded~1 for all~$n$, the higher dimensions produce collapse times well within $[0, 1]$.}}{7}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:collapse-vs-n}{{3}{7}{Collapse time $t_C$ vs.\ dataset size~$n$ at fixed $d = 50$ (left) and $d = 100$ (right). The empirical values follow the $\propto \!\log (n)/d$ scaling (dashed line), confirming the logarithmic dependence on~$n$. Unlike the earlier version of this experiment at $d = 5$ and $d = 10$ where $t_C$ exceeded~1 for all~$n$, the higher dimensions produce collapse times well within $[0, 1]$}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Velocity approximation error $\mathbb  {E}\left \lVert u_\theta - \hat  {u}^\star  \right \rVert ^2$ vs.\ $t$ for varying dataset sizes on the $d = 100$ Gaussian mixture. Two failure zones are visible: an early-time bump at $t \approx 0.12$--$0.15$ (most prominent for $n = 10$), and a late-time rise for $n \geq 200$.}}{7}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:velocity-error}{{4}{7}{Velocity approximation error $\E \norm {u_\theta - \hat {u}^\star }^2$ vs.\ $t$ for varying dataset sizes on the $d = 100$ Gaussian mixture. Two failure zones are visible: an early-time bump at $t \approx 0.12$--$0.15$ (most prominent for $n = 10$), and a late-time rise for $n \geq 200$}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Causal link between Figures~1 and~2.}{7}{figure.caption.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Differences with the paper.}{8}{Item.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces (a)~The nearest-neighbor distance between generated and training samples increases with $n$, indicating a transition from memorization to generalization as the dataset outgrows the network's capacity. (b)~PCA projections confirm the trend: for small $n$, generated points (red) cluster near training data (blue); for large~$n$, the model produces diverse samples with the same modal structure.}}{8}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:nn-dist-scatter}{{5}{8}{(a)~The nearest-neighbor distance between generated and training samples increases with $n$, indicating a transition from memorization to generalization as the dataset outgrows the network's capacity. (b)~PCA projections confirm the trend: for small $n$, generated points (red) cluster near training data (blue); for large~$n$, the model produces diverse samples with the same modal structure}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Replication of Figure~3: generalization switching time}{8}{subsection.7.3}\protected@file@percent }
+\newlabel{subsec:fig3}{{7.3}{8}{Replication of Figure~3: generalization switching time}{subsection.7.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Additional experiments}{8}{section.8}\protected@file@percent }
+\newlabel{sec:additional}{{8}{8}{Additional experiments}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Dataset geometry}{8}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Dimension scaling}{8}{subsection.8.2}\protected@file@percent }
+\citation{lipman2023flow}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Model capacity}{9}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Training duration}{9}{subsection.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Discussion}{9}{section.9}\protected@file@percent }
+\newlabel{sec:discussion}{{9}{9}{Discussion}{section.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{Robust findings.}{9}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Inconclusive aspects.}{9}{Item.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Critical perspective on the paper.}{9}{Item.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Use of chatbot tools}{9}{section.10}\protected@file@percent }
+\newlabel{sec:tools}{{10}{9}{Use of chatbot tools}{section.10}{}}
 \citation{bertrand2025closed}
 \bibstyle{plain}
 \bibdata{references}
@@ -113,15 +135,12 @@
 \bibcite{ho2020denoising}{5}
 \bibcite{lipman2023flow}{6}
 \bibcite{lipman2024flow}{7}
-\@writefile{toc}{\contentsline {paragraph}{Critical perspective on the paper.}{7}{Item.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Use of chatbot tools}{7}{section.10}\protected@file@percent }
-\newlabel{sec:tools}{{10}{7}{Use of chatbot tools}{section.10}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {11}Conclusion}{7}{section.11}\protected@file@percent }
-\newlabel{sec:conclusion}{{11}{7}{Conclusion}{section.11}{}}
-\@writefile{toc}{\contentsline {paragraph}{Possible extensions.}{7}{Item.9}\protected@file@percent }
 \bibcite{liu2023flow}{8}
 \bibcite{song2021score}{9}
 \bibcite{vastola2025generalization}{10}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Additional figures}{8}{appendix.A}\protected@file@percent }
-\newlabel{app:figures}{{A}{8}{Additional figures}{appendix.A}{}}
-\gdef \@abspage@last{8}
+\@writefile{toc}{\contentsline {section}{\numberline {11}Conclusion}{10}{section.11}\protected@file@percent }
+\newlabel{sec:conclusion}{{11}{10}{Conclusion}{section.11}{}}
+\@writefile{toc}{\contentsline {paragraph}{Possible extensions.}{10}{Item.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}Additional figures}{11}{appendix.A}\protected@file@percent }
+\newlabel{app:figures}{{A}{11}{Additional figures}{appendix.A}{}}
+\gdef \@abspage@last{11}

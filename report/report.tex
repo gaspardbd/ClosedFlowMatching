@@ -394,7 +394,10 @@ We conduct experiments on three 2D toy datasets:
     \item \textbf{Rings}: three concentric circles with radii $\{0.5, 1.0, 1.5\}$ and Gaussian noise $\sigma = 0.05$.
     \item \textbf{Gaussian mixture}: 8 isotropic Gaussians with $\sigma = 0.15$, centers equally spaced on a circle of radius~2.
 \end{itemize}
-For the dimension-dependence experiments, we extend the Gaussian mixture to $d$ dimensions, placing the 8 centers on a circle in the first two coordinates.
+For the dimension-dependence experiments (Section~\ref{subsec:fig1}), we extend the Gaussian mixture to $d$ dimensions (\texttt{gaussian\_mixture\_nd}).
+The 8~centers are placed on a hypersphere of radius $\sqrt{2d}$ in $\R^d$, so that interpoint distances scale as $\mathcal{O}(d)$---analogous to real image data.
+The per-coordinate noise is $\sigma = 0.5$, chosen so that the stochastic-to-deterministic transition occurs around $t \approx 0.15$--$0.3$ for $d \sim 100$--$200$, matching the collapse time observed on CIFAR-10 in the paper.
+For the velocity approximation experiments (Section~\ref{subsec:fig2}), we use this same dataset at $d = 100$ with varying~$n$.
 
 \subsection{Architecture and optimization}
 
@@ -402,6 +405,10 @@ For the dimension-dependence experiments, we extend the Gaussian mixture to $d$ 
 We use a 4-layer MLP with 256 hidden units per layer and SiLU activations.
 The input is $[x_t; t] \in \R^{d+1}$ and the output is the predicted velocity $u_\theta(x_t, t) \in \R^d$.
 We train with Adam (lr $= 10^{-3}$) for 20\,000 gradient steps with batch size 256.
+
+\paragraph{$d = 100$ experiments (Figure~2 replication).}
+For the velocity approximation analysis, we use a 5-layer MLP with 512 hidden units (${\sim}$1.2M parameters) and train for 30\,000 steps.
+The capacity-per-dimension ratio (${\sim}$12\,000 parameters per input dimension) is comparable to the paper's setup (${\sim}$11\,000 for the 34M-parameter U-Net on CIFAR-10 with $d = 3072$).
 
 \paragraph{Image experiments.}
 We use a small UNet ($\sim$1.5M parameters) with 3 encoder/decoder levels, time conditioning via sinusoidal embeddings, residual blocks with GroupNorm, and SiLU activations.
@@ -433,27 +440,114 @@ Using the hybrid model, we identify the threshold $\tau$ at which the mean neare
 \subsection{Replication of Figure~1: stochasticity analysis}\label{subsec:fig1}
 
 \paragraph{Cosine similarity histograms (Figure~1a).}
-We sample 256 pairs from $p_0 \times \hat{p}_{\mathrm{data}}$ and plot the distribution of cosine similarities at 7 time steps, for each of our three 2D datasets.
-As expected, the histograms concentrate near~1 as $t$ increases, confirming the collapse to a single conditional velocity.
-On 2D data, the transition occurs at intermediate $t$ ($\approx 0.4$--$0.6$), consistent with the paper's 2-moons experiments.
+We sample 256 pairs from $p_0 \times \hat{p}_{\mathrm{data}}$ and plot the distribution of cosine similarities at 7 time steps for each of our three 2D datasets (Figure~\ref{fig:cosine-hist}).
+As expected, the histograms progressively concentrate near~1 as $t$ increases, confirming the collapse of the softmax weights to a single conditional velocity.
+On 2D data, the transition occurs at intermediate-to-late~$t$ ($\approx 0.4$--$0.8$), consistent with the paper's observations on the two-moons dataset.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{figs/notebook_1/fig1a_cosine_histograms-2.pdf}
+\caption{Cosine similarity histograms between $\hat{u}^\star$ and $u^{\mathrm{cond}}$ for three 2D datasets ($n = 5000$) at various time steps.
+The progressive concentration near~1 confirms the collapse to a single conditional direction.
+In 2D the stochastic regime persists until intermediate~$t$, consistent with the paper's Figure~1a (top row, two-moons).}
+\label{fig:cosine-hist}
+\end{figure}
 
 \paragraph{Dimension dependence (Figure~1c).}
-Using the $d$-dimensional Gaussian mixture with $d \in \{2, 10, 50, 100, 500, 1000\}$ and $n = 2000$, we plot the fraction of pairs with $\cos > 0.9$ vs.\ $t$.
-As dimension increases, the curve shifts sharply to the left: at $d = 1000$, near-perfect alignment occurs already at $t \approx 0.02$.
+Using the $d$-dimensional Gaussian mixture with centers spread across all $d$~dimensions, $d \in \{2, 10, 50, 100, 500, 1000\}$ and $n = 2000$, we plot the fraction of pairs with $\cos > 0.9$ vs.~$t$ (Figure~\ref{fig:dim-dependence}a).
+The dimension dependence is striking: for $d = 2$, collapse occurs gradually around $t \approx 0.6$--$0.8$; for $d = 100$, it is essentially complete by $t \approx 0.3$; for $d = 1000$, full alignment is achieved before $t = 0.1$.
+This qualitatively matches the paper's Figure~1c on Imagenette, where increasing the spatial resolution (and hence~$d$) shifts the collapse to earlier times.
 
 \paragraph{Comparison with Biroli et al.}
-We extract the empirical collapse time for each dimension and compare with the theoretical scaling $t_C \propto \log(n)/d$.
-We also fix $d = 50$ and vary $n$ to verify the $\log(n)$ factor.
-Both scalings are well matched, confirming that the Biroli et al.\ prediction carries over to the flow matching setting.
+We extract the empirical collapse time $t_C$ for each dimension and compare with the theoretical scaling $t_C \propto \log(n)/d$ from Biroli et al.~\cite{biroli2024dynamical} (Figure~\ref{fig:dim-dependence}b).
+The fit is excellent across two orders of magnitude in~$d$, for both $n = 500$ and $n = 2000$.
+Fixing $d \in \{50, 100\}$ and varying $n$ (Figure~\ref{fig:collapse-vs-n}), we observe collapse times within $[0.2, 0.7]$ that follow the predicted $\log(n)$ dependence.
+This confirms that the Biroli et al.\ prediction, originally derived for diffusion models, carries over to the flow matching setting.
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figs/notebook_1/fig1c_dimension_dependence-2.pdf}
+\caption{Dimension dependence of the stochasticity collapse.}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figs/notebook_1/fig1_collapse_time_vs_theory-2.pdf}
+\caption{Empirical collapse time vs.\ Biroli et al.\ prediction.}
+\end{subfigure}
+\caption{(a)~Percentage of pairs with $\cos(\hat{u}^\star, u^{\mathrm{cond}}) > 0.9$ vs.\ $t$, for varying data dimension~$d$ ($n = 2000$).
+Higher dimension leads to earlier collapse, consistent with the paper's Figure~1c on Imagenette.
+(b)~Empirical collapse time matches the $\propto\!\log(n)/d$ scaling from~\cite{biroli2024dynamical} for both $n = 500$ and $n = 2000$.}
+\label{fig:dim-dependence}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{figs/notebook_1/fig1_collapse_vs_n-2.pdf}
+\caption{Collapse time $t_C$ vs.\ dataset size~$n$ at fixed $d = 50$ (left) and $d = 100$ (right).
+The empirical values follow the $\propto\!\log(n)/d$ scaling (dashed line), confirming the logarithmic dependence on~$n$.
+Unlike the earlier version of this experiment at $d = 5$ and $d = 10$ where $t_C$ exceeded~1 for all~$n$, the higher dimensions produce collapse times well within $[0, 1]$.}
+\label{fig:collapse-vs-n}
+\end{figure}
 
 \subsection{Replication of Figure~2: velocity approximation failure}\label{subsec:fig2}
 
-We train flow matching models with fixed capacity (256-hidden MLP) on the Gaussian mixture dataset with $n \in \{10, 50, 200, 1000, 5000\}$.
-For each model, we evaluate the approximation error $\norm{u_\theta - \hat{u}^\star}^2$ across time.
+We train flow matching models on the $d = 100$ Gaussian mixture with fixed capacity (512-hidden, 5-layer MLP) and $n \in \{10, 50, 200, 1000, 5000\}$ training samples.
+For each model, we evaluate $\E\norm{u_\theta(x_t,t) - \hat{u}^\star(x_t,t)}^2$ across time (Figure~\ref{fig:velocity-error}).
 
-With $n = 10$ (darkest curve), the error is nearly zero: the network perfectly memorizes $\hat{u}^\star$.
-As $n$ grows, the error increases, with pronounced peaks near $t \approx 0.15$ and $t \to 1$.
-In parallel, the nearest-neighbor distance grows with $n$, confirming that memorization gives way to generalization as the dataset becomes too complex for the network.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\textwidth]{figs/notebook_2/fig2.png}
+\caption{Velocity approximation error $\E\norm{u_\theta - \hat{u}^\star}^2$ vs.\ $t$ for varying dataset sizes on the $d = 100$ Gaussian mixture.
+Two failure zones are visible: an early-time bump at $t \approx 0.12$--$0.15$ (most prominent for $n = 10$), and a late-time rise for $n \geq 200$.}
+\label{fig:velocity-error}
+\end{figure}
+
+Several features are consistent with the paper's Figure~2 on CIFAR-10:
+\begin{itemize}[nosep,leftmargin=1.5em]
+    \item \textbf{Early-time bump ($t \approx 0.12$--$0.15$).} For $n = 10$, a clear peak appears at $t \approx 0.12$, precisely during the stochastic-to-deterministic transition identified in Figure~\ref{fig:dim-dependence}a for $d = 100$.
+    \item \textbf{Late-time divergence ($t \to 1$).} For $n \geq 200$, the error rises sharply as $t \to 1$, where $\hat{u}^\star$ becomes non-Lipschitz.
+    For $n = 1000$ and $n = 5000$, the error peaks above 120 near $t \approx 0.8$--$0.9$.
+    \item \textbf{Error grows with $n$ at late times.} For $t > 0.3$, larger datasets produce higher approximation error, confirming that $\hat{u}^\star$ grows in complexity with~$n$.
+\end{itemize}
+
+\paragraph{Causal link between Figures~1 and~2.}
+The early-time bump in Figure~\ref{fig:velocity-error} is not coincidental: it is a \emph{direct consequence} of the stochastic regime identified in Figure~\ref{fig:dim-dependence}a.
+The causal chain is as follows:
+\begin{enumerate}[nosep,leftmargin=1.5em]
+    \item For $t < t_C$ (stochastic regime), multiple training points contribute to $\hat{u}^\star$, so $\hat{u}^\star(x_t, t) \neq u^{\mathrm{cond}}(x_t, x_1, t)$.
+    \item The network $u_\theta$ is trained by minimizing $\norm{u_\theta - u^{\mathrm{cond}}}^2$ (the CFM loss), so it learns to approximate $u^{\mathrm{cond}}$, \emph{not} $\hat{u}^\star$ directly.
+    \item Therefore, wherever $\hat{u}^\star \neq u^{\mathrm{cond}}$, we necessarily have $u_\theta \approx u^{\mathrm{cond}} \neq \hat{u}^\star$, producing high approximation error.
+    \item Conversely, for $t > t_C$ (deterministic regime), $\hat{u}^\star \approx u^{\mathrm{cond}}$, so $u_\theta \approx u^{\mathrm{cond}} \approx \hat{u}^\star$ and the error is low.
+\end{enumerate}
+In our experiments, Figure~\ref{fig:dim-dependence}a shows that for $d = 100$, the cosine similarity between $\hat{u}^\star$ and $u^{\mathrm{cond}}$ reaches 90\% around $t \approx 0.3$, with the transition beginning around $t \approx 0.1$--$0.15$.
+This matches precisely the location of the early-time error bump in Figure~\ref{fig:velocity-error}.
+The paper makes the same observation on CIFAR-10~\cite[Section~3.2]{bertrand2025closed}: ``the early-time failure at $t \approx 0.15$ corresponds to the regime where $\hat{u}^\star$ and $u^{\mathrm{cond}}$ start to correlate.''
+Our toy experiments thus confirm, on controlled synthetic data, the same causal mechanism linking target stochasticity to velocity approximation failure.
+
+\paragraph{Differences with the paper.}
+Unlike the paper's Figure~2 where the $n = 10$ curve shows nearly zero error (the U-Net perfectly memorizes 10 CIFAR-10 images), our MLP exhibits high baseline error (${\sim}$100) even for small~$n$.
+This reflects the absence of architectural inductive bias: a plain MLP must learn a mapping from $\R^{101}$ to $\R^{100}$ without any spatial structure to exploit, whereas the U-Net leverages convolutional priors and skip connections.
+This observation is itself consistent with the paper's thesis: the extent of memorization vs.\ generalization depends critically on how well $u_\theta$ can approximate $\hat{u}^\star$, and this capacity is strongly architecture-dependent.
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[t]{0.36\textwidth}
+\includegraphics[width=\textwidth]{figs/notebook_2/fig2_right_nn_distance.pdf}
+\caption{Mean nearest-neighbor distance.}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.60\textwidth}
+\includegraphics[width=\textwidth]{figs/notebook_2/fig2_scatter_comparison.pdf}
+\caption{2D PCA projection of generated vs.\ training data.}
+\end{subfigure}
+\caption{(a)~The nearest-neighbor distance between generated and training samples increases with $n$, indicating a transition from memorization to generalization as the dataset outgrows the network's capacity.
+(b)~PCA projections confirm the trend: for small $n$, generated points (red) cluster near training data (blue); for large~$n$, the model produces diverse samples with the same modal structure.}
+\label{fig:nn-dist-scatter}
+\end{figure}
+
+The nearest-neighbor distance (Figure~\ref{fig:nn-dist-scatter}a) increases monotonically with~$n$, matching the paper's finding: as the dataset grows beyond the network's capacity, the model can no longer reproduce individual training points and begins to generalize.
+The 2D PCA projections (Figure~\ref{fig:nn-dist-scatter}b) visually confirm this: for $n = 10$, generated points overlap the training data; for $n = 5000$, they form a broader distribution that preserves the modal structure without exact memorization.
 
 \subsection{Replication of Figure~3: generalization switching time}\label{subsec:fig3}
 
@@ -518,9 +612,24 @@ This may be because the schedules primarily affect the density of Euler steps ac
 A more careful study on image-scale data would be needed.
 
 \paragraph{Critical perspective on the paper.}
-While the paper convincingly rules out target stochasticity as the source of generalization, we note that the equivalence between CFM and FM losses ($\nabla_\theta \cL_{\mathrm{CFM}} = \nabla_\theta \cL_{\mathrm{FM}}$) already implies that both losses share the same minimizer $\hat{u}^\star$.
-The novelty of the EFM algorithm (Section~\ref{sec:efm}) is therefore not in changing the \emph{optimal} velocity but in changing the \emph{variance of the training signal}, which may affect optimization dynamics and implicit regularization.
-The paper's main contribution is empirical: showing that the variance reduction does not hurt generalization, which is a stronger statement than the theoretical equivalence alone.
+
+\emph{(i) The collapse result is theoretically expected.}
+Section~3.1 of the paper shows empirically that $\hat{u}^\star \approx u^{\mathrm{cond}}$ in high dimensions for most of the trajectory.
+But this is already implied by Lipman et al.~\cite[Thm.~2]{lipman2023flow}: the gradient equivalence $\nabla_\theta \cL_{\mathrm{CFM}} = \nabla_\theta \cL_{\mathrm{FM}}$ means both losses share the same minimizer~$\hat{u}^\star$.
+Since $u^{\mathrm{cond}}$ is a stochastic estimate of $\hat{u}^\star$ (Eq.~\ref{eq:marginal-vel}), and since stochastic estimates concentrate in high dimensions, the near-identity $\hat{u}^\star \approx u^{\mathrm{cond}}$ is a consequence of this known theoretical equivalence combined with standard concentration of measure arguments.
+The empirical demonstration is valuable, but the conceptual content is not new.
+
+\emph{(ii) Internal tension with the EFM algorithm.}
+There is a logical tension within the paper.
+Section~3.1 argues that $\hat{u}^\star$ and $u^{\mathrm{cond}}$ are nearly identical for $t > t_C$, which covers most of~$[0,1]$ in high dimensions.
+Section~4 then proposes EFM (Algorithm~2), which replaces $u^{\mathrm{cond}}$ by a Monte Carlo estimate $\hat{u}^\star_M$ of $\hat{u}^\star$ to reduce the variance of the training target.
+But if the targets are already nearly identical (as Section~3.1 establishes), the variance reduction can only affect the short stochastic phase ($t < t_C$), which for CIFAR-10 corresponds to roughly 15\% of the trajectory.
+Unsurprisingly, Figure~4 shows only ``modest but steady improvements'' --- the algorithm solves a problem that the paper itself has shown to be negligible.
+One may therefore wonder: given that the gradient equivalence theorem already guarantees both losses share the same optimum, \emph{why create a new algorithm at all?}
+
+\emph{(iii) Where the genuine contribution lies.}
+In our view, the paper's central contribution is \emph{not} the EFM algorithm but rather the temporal analysis of Sections~3.2--3.3: identifying that generalization arises at specific time intervals where $u_\theta$ fails to approximate $\hat{u}^\star$, and showing via the hybrid model that generalization is concentrated in the first ${\sim}$20\% of the trajectory.
+This insight --- that limited network capacity, not target noise, drives generalization --- is genuinely new and is well supported by both their image experiments and our toy reproductions.
 
 %==========================================================================
 \section{Use of chatbot tools}\label{sec:tools}
