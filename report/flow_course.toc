@@ -1,0 +1,65 @@
+\contentsline {part}{I\hspace {1em}Transport PDEs and Dynamics}{3}{part.1}%
+\contentsline {section}{\numberline {1}Core objects and notation}{3}{section.1}%
+\contentsline {paragraph}{Setting.}{3}{section*.2}%
+\contentsline {section}{\numberline {2}Stochastic dynamics and the Fokker--Planck equation}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Forward SDE}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}The Fokker--Planck equation}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}A fundamental score identity}{4}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Deterministic dynamics and the continuity equation}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Flow maps and velocity fields}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}The continuity equation}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Mass conservation criterion}{5}{subsection.3.3}%
+\contentsline {section}{\numberline {4}The SDE/ODE bridge}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Probability-flow ODE}{6}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Reverse-time SDE}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}A continuum of marginal-preserving SDEs}{7}{subsection.4.3}%
+\contentsline {part}{II\hspace {1em}Flow Matching Framework}{9}{part.2}%
+\contentsline {section}{\numberline {5}From diffusion insights to the general framework}{9}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Lesson from score-based diffusion}{9}{subsection.5.1}%
+\contentsline {paragraph}{Step 1: A conditional path and its marginal densities.}{9}{section*.3}%
+\contentsline {paragraph}{Step 2: A velocity field from the Fokker--Planck equation.}{9}{section*.4}%
+\contentsline {paragraph}{Step 3: Learning via the conditional strategy.}{9}{section*.5}%
+\contentsline {subsection}{\numberline {5.2}The flow matching framework}{9}{subsection.5.2}%
+\contentsline {paragraph}{Setup.}{9}{section*.6}%
+\contentsline {subsubsection}{\numberline {5.2.1}Step 1: Conditional path and its marginal densities}{10}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Step 2: Velocity field}{10}{subsubsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.3}Step 3: Learning via the conditional strategy}{10}{subsubsection.5.2.3}%
+\contentsline {paragraph}{Conditional velocity field.}{10}{section*.7}%
+\contentsline {paragraph}{Marginal velocity by marginalization.}{10}{section*.8}%
+\contentsline {paragraph}{FM and CFM losses.}{10}{section*.9}%
+\contentsline {subsection}{\numberline {5.3}The marginalization trick}{11}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}CFM and FM have the same gradient}{11}{subsection.5.4}%
+\contentsline {part}{III\hspace {1em}Constructing Probability Paths and Velocity Fields}{12}{part.3}%
+\contentsline {section}{\numberline {6}Warm-up: Gaussian-to-Gaussian bridge}{12}{section.6}%
+\contentsline {section}{\numberline {7}Probability-path-first construction (Eulerian view)}{12}{section.7}%
+\contentsline {subsection}{\numberline {7.1}One-sided conditioning ($z = x_1 \sim p_{\mathrm {tgt}}$)}{12}{subsection.7.1}%
+\contentsline {paragraph}{CFM loss.}{13}{section*.10}%
+\contentsline {paragraph}{On paired samples.}{13}{section*.11}%
+\contentsline {subsection}{\numberline {7.2}Two-sided conditioning ($z = (x_0, x_1)$)}{13}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Gaussian FM = Diffusion}{13}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Flow-first construction (Lagrangian view)}{13}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Conditional affine flow}{14}{subsection.8.1}%
+\contentsline {paragraph}{Induced conditional path.}{14}{section*.12}%
+\contentsline {paragraph}{Derived conditional velocity.}{14}{section*.13}%
+\contentsline {subsection}{\numberline {8.2}One-sided ($z = x_1$)}{14}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Two-sided ($z = (x_0, x_1)$)}{14}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Recovery of the Gaussian bridge}{14}{subsection.8.4}%
+\contentsline {section}{\numberline {9}Path-first vs.\ flow-first: comparison}{14}{section.9}%
+\contentsline {part}{IV\hspace {1em}Gaussian Paths, Scores, and Full Unification}{15}{part.4}%
+\contentsline {section}{\numberline {10}From forward SDEs to affine Gaussian schedules}{15}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Linear SDE and its Gaussian conditional law}{15}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Inverse identification: $(\alpha _t,\sigma _t) \to (f_t,g_t)$}{16}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}VP and VE as special cases}{16}{subsection.10.3}%
+\contentsline {section}{\numberline {11}Score identities, four parameterizations, and the FM = Diffusion equivalence}{16}{section.11}%
+\contentsline {subsection}{\numberline {11.1}The affine Gaussian path}{16}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Score marginalization for Gaussian mixtures}{17}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}The four prediction types and their algebraic equivalence}{17}{subsection.11.3}%
+\contentsline {paragraph}{The four predictions.}{17}{section*.14}%
+\contentsline {subsection}{\numberline {11.4}The FM velocity is the PF-ODE drift: the complete equivalence}{18}{subsection.11.4}%
+\contentsline {subsection}{\numberline {11.5}PF-ODE in all four parameterizations}{19}{subsection.11.5}%
+\contentsline {section}{\numberline {12}All affine flows are equivalent}{19}{section.12}%
+\contentsline {part}{V\hspace {1em}Synthesis}{20}{part.5}%
+\contentsline {section}{\numberline {13}The Fokker--Planck equation as the unifying principle}{20}{section.13}%
+\contentsline {section}{\numberline {A}Derivation of weak forms from stochastic calculus}{21}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}ODE case}{21}{subsection.A.1}%
+\contentsline {subsection}{\numberline {A.2}SDE case}{21}{subsection.A.2}%
